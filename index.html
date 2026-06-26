@@ -217,31 +217,41 @@
     </div>
   </section>
 
-  <section class="booking section" id="booking">
+  <section class="booking cinematic section" id="booking">
     <div class="booking-bg"></div>
-    <div class="container booking-container">
+    <div class="container booking-container-cinematic">
       <div class="booking-content">
-        <span class="section-tag">Get Started</span>
-        <h2>Ready for Your Best Smile?</h2>
-        <p>Book your free consultation today. No pressure, no commitment - just a friendly conversation about your smile goals.</p>
-        <div class="booking-perks"><span>&#10003; Free First Consultation</span><span>&#10003; Same-Day Appointments</span><span>&#10003; UPI &amp; All Payments Accepted</span></div>
+        <span class="section-tag-sharp">Get Started</span>
+        <h2 class="about-title-large">Ready for Your Best Smile?</h2>
+        <p class="about-lead-sharp">Book your free consultation today. No pressure, no commitment - just a friendly conversation about your smile goals.</p>
+        <div class="booking-perks-sharp"><span>Free First Consultation</span><span>Same-Day Appointments</span><span>UPI &amp; All Payments Accepted</span></div>
       </div>
       <div class="booking-form-wrap">
-        <form class="booking-form" id="bookingForm" novalidate>
-          <h3>Book Your Appointment</h3>
-          <div class="form-row">
-            <div class="form-group"><label for="fname">First Name</label><input type="text" id="fname" placeholder="Jane" required /></div>
-            <div class="form-group"><label for="lname">Last Name</label><input type="text" id="lname" placeholder="Smith" required /></div>
+        <form class="booking-form-sharp" id="bookingForm" novalidate>
+          <h3 class="about-title-large" style="font-size:2rem;">Book Your Appointment</h3>
+          <div class="form-row-sharp">
+            <div class="form-group-sharp"><input type="text" id="fname" placeholder="First Name" required /></div>
+            <div class="form-group-sharp"><input type="text" id="lname" placeholder="Last Name" required /></div>
           </div>
-          <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" placeholder="jane@example.com" required /></div>
-          <div class="form-group"><label for="phone">Phone Number (WhatsApp)</label><input type="tel" id="phone" placeholder="+91 98765 00000" required /></div>
-          <div class="form-group"><label for="service">Service Interested In</label><select id="service"><option value="">Select a service...</option><option>General Checkup &amp; Cleaning</option><option>Teeth Whitening</option><option>Root Canal Treatment</option><option>Dental Implants</option><option>Porcelain Veneers</option><option>Braces &amp; Aligners</option><option>Emergency Dental Care</option></select></div>
-          <div class="form-group"><label for="apptdate">Preferred Date</label><input type="date" id="apptdate" /></div>
-          <button type="submit" class="btn btn-primary btn-full" id="submitBtn"><span>Send via WhatsApp</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-          <p class="form-note">&#x1F512; You will be redirected to WhatsApp to confirm your slot.</p>
+          <div class="form-group-sharp"><input type="email" id="email" placeholder="Email Address" required /></div>
+          <div class="form-group-sharp"><input type="tel" id="phone" placeholder="Phone Number (WhatsApp)" required /></div>
+          <div class="form-group-sharp">
+            <select id="service">
+              <option value="">Select a service...</option>
+              <option>General Checkup &amp; Cleaning</option>
+              <option>Teeth Whitening</option>
+              <option>Root Canal Treatment</option>
+              <option>Dental Implants</option>
+              <option>Porcelain Veneers</option>
+              <option>Braces &amp; Aligners</option>
+              <option>Emergency Dental Care</option>
+            </select>
+          </div>
+          <div class="form-group-sharp"><input type="date" id="apptdate" /></div>
+          <button type="submit" class="btn btn-sharp-primary" style="width:100%" id="submitBtn">Send via WhatsApp</button>
+          <p class="form-note-sharp">You will be redirected to WhatsApp to confirm your slot.</p>
         </form>
-        <div class="booking-success" id="bookingSuccess" style="display:none;">
-          <div class="success-icon">&#x1F389;</div>
+        <div class="booking-success-sharp" id="bookingSuccess" style="display:none;">
           <h3>You are All Set!</h3>
           <p>We have received your request and will call to confirm within 2 hours. We cannot wait to meet you!</p>
         </div>
@@ -278,31 +288,64 @@
     </div>
   </section>
 
-  <section class="why-us section" id="why-us">
-    <div class="why-us-bg"></div>
+  <section class="why-us cinematic section" id="why-us">
     <div class="container">
-      <div class="section-header light">
-        <span class="section-tag">Why PureSmile</span>
-        <h2>The Difference You Can Feel</h2>
-        <p>From the moment you walk in, you will notice we do things differently.</p>
+      <div class="section-header-left">
+        <span class="section-tag-sharp">Why PureSmile</span>
+        <h2 class="about-title-large">The Difference You Can Feel</h2>
       </div>
-      <div class="why-grid">
-        <div class="why-card"><div class="why-num">01</div><h3>Zero-Pain Promise</h3><p>Our advanced numbing techniques and anxiety management protocols ensure a genuinely comfortable experience every visit.</p></div>
-        <div class="why-card"><div class="why-num">02</div><h3>Transparent Pricing</h3><p>No hidden fees, no surprise bills. We provide detailed treatment plans with clear costs before any procedure begins.</p></div>
-        <div class="why-card"><div class="why-num">03</div><h3>Same-Day Results</h3><p>Many of our procedures - including whitening and emergency repairs - can be completed in a single visit.</p></div>
-        <div class="why-card"><div class="why-num">04</div><h3>Flexible Payment Plans</h3><p>0% interest financing options available. We work with your budget so premium care is never out of reach.</p></div>
-        <div class="why-card"><div class="why-num">05</div><h3>All Payment Modes</h3><p>Cash, UPI, card, net banking &mdash; we accept all. EMI &amp; cashless options available. No payment hassle, ever.</p></div>
-        <div class="why-card"><div class="why-num">06</div><h3>Sterilization Certified</h3><p>Hospital-grade sterilization protocols and OSHA-certified processes. Your safety is our top priority.</p></div>
+      <div class="why-list-cinematic">
+        <div class="why-row-cinematic">
+          <div class="why-num-large">01</div>
+          <div class="why-text-wrap">
+            <h3>Zero-Pain Promise</h3>
+            <p>Our advanced numbing techniques and anxiety management protocols ensure a genuinely comfortable experience every visit.</p>
+          </div>
+        </div>
+        <div class="why-row-cinematic">
+          <div class="why-num-large">02</div>
+          <div class="why-text-wrap">
+            <h3>Transparent Pricing</h3>
+            <p>No hidden fees, no surprise bills. We provide detailed treatment plans with clear costs before any procedure begins.</p>
+          </div>
+        </div>
+        <div class="why-row-cinematic">
+          <div class="why-num-large">03</div>
+          <div class="why-text-wrap">
+            <h3>Same-Day Results</h3>
+            <p>Many of our procedures - including whitening and emergency repairs - can be completed in a single visit.</p>
+          </div>
+        </div>
+        <div class="why-row-cinematic">
+          <div class="why-num-large">04</div>
+          <div class="why-text-wrap">
+            <h3>Flexible Payment Plans</h3>
+            <p>0% interest financing options available. We work with your budget so premium care is never out of reach.</p>
+          </div>
+        </div>
+        <div class="why-row-cinematic">
+          <div class="why-num-large">05</div>
+          <div class="why-text-wrap">
+            <h3>All Payment Modes</h3>
+            <p>Cash, UPI, card, net banking &mdash; we accept all. EMI &amp; cashless options available. No payment hassle, ever.</p>
+          </div>
+        </div>
+        <div class="why-row-cinematic">
+          <div class="why-num-large">06</div>
+          <div class="why-text-wrap">
+            <h3>Sterilization Certified</h3>
+            <p>Hospital-grade sterilization protocols and OSHA-certified processes. Your safety is our top priority.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="testimonials section" id="testimonials">
+  <section class="testimonials cinematic section" id="testimonials">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Patient Stories</span>
-        <h2>Real Smiles, Real Results</h2>
-        <p>Do not just take our word for it - hear from our community of happy patients.</p>
+        <span class="section-tag-sharp">Patient Stories</span>
+        <h2 class="about-title-large">Real Results</h2>
       </div>
       <div class="testimonials-track" id="testimonialsTrack">
         <div class="testimonial-card cinematic">
