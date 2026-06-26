@@ -207,9 +207,35 @@ a { text-decoration: none; color: inherit; }
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 1280px;
+  max-width: 700px;
   padding: 0 32px;
+}
+.hero-split {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1280px;
   margin: 0 auto;
+  padding: 0 32px;
+  gap: 48px;
+}
+.hero-doctor-wrap {
+  flex-shrink: 0;
+  width: 380px;
+  height: 500px;
+  overflow: hidden;
+  border: 3px solid rgba(255,255,255,0.15);
+  position: relative;
+}
+.hero-doctor-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  filter: contrast(1.1);
 }
 .hero-badge-clean {
   display: inline-block;
@@ -667,9 +693,6 @@ a { text-decoration: none; color: inherit; }
 /* ===========================
    BOOKING
    =========================== */
-/* ===========================
-   BOOKING
-   =========================== */
 .booking.cinematic { position: relative; overflow: hidden; background: #fff; padding: 120px 0; }
 .booking-container-cinematic {
   display: grid;
@@ -734,9 +757,6 @@ a { text-decoration: none; color: inherit; }
 /* ===========================
    BLOG
    =========================== */
-/* ===========================
-   BLOG
-   =========================== */
 .blog.cinematic { background: #fff; padding: 120px 0; }
 .blog-grid-cinematic { display: grid; grid-template-columns: repeat(3, 1fr); gap: 64px; }
 .blog-card-sharp {
@@ -792,11 +812,12 @@ a { text-decoration: none; color: inherit; }
   position: fixed; bottom: 32px; right: 32px; z-index: 9999;
   display: flex; align-items: center; gap: 12px;
   background: #25D366; color: var(--surface);
-  padding: 16px 24px; border-radius: 100px;
+  padding: 16px 24px;
   font-weight: 700; font-size: 1rem;
   box-shadow: 0 12px 32px rgba(37, 211, 102, 0.4);
   transition: var(--transition);
   animation: waPulse 2.5s ease-in-out infinite;
+  text-decoration: none;
 }
 .whatsapp-float:hover { transform: translateY(-4px) scale(1.05); }
 @keyframes waPulse {
@@ -820,18 +841,20 @@ a { text-decoration: none; color: inherit; }
 @media (max-width: 1024px) {
   .services-accordion { flex-direction: column; height: 800px; }
   .sa-header h3 { font-size: 1.5rem; }
-  .why-grid { grid-template-columns: repeat(2, 1fr); }
-  .about-container { grid-template-columns: 1fr; gap: 64px; }
-  .about-image-wrap { max-width: 600px; margin: 0 auto; }
-  .about-exp-badge { bottom: 20px; right: 20px; border-radius: var(--radius-lg); padding: 24px; }
-  .booking-container { grid-template-columns: 1fr; gap: 64px; }
-  .contact-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-inner { grid-template-columns: 1fr 1fr; gap: 64px; }
-  .hero { flex-direction: column; padding: 160px 0 80px; }
-  .hero-image-wrap { flex: none; width: 100%; max-width: 500px; height: 500px; margin: 0 auto; }
-  .hero-content { margin-left: 0; padding: 0 32px; max-width: 100%; text-align: center; }
+  .why-list-cinematic { gap: 0; }
+  .why-row-cinematic { gap: 32px; padding: 40px 0; }
+  .why-num-large { font-size: 3.5rem; }
+  .about-container-cinematic { grid-template-columns: 1fr; gap: 64px; }
+  .about-image-wrap-cinematic { max-width: 600px; margin: 0 auto; }
+  .about-exp-badge-sharp { bottom: 20px; right: 20px; padding: 24px; }
+  .booking-container-cinematic { grid-template-columns: 1fr; gap: 64px; }
+  .contact-grid-cinematic { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner-cinematic { grid-template-columns: 1fr 1fr; gap: 64px; }
+  .hero-split { flex-direction: column; text-align: center; }
+  .hero-content-cinematic { max-width: 100%; }
   .hero-actions { justify-content: center; }
-  .hero-stats { justify-content: center; flex-wrap: wrap; }
+  .hero-doctor-wrap { width: 280px; height: 360px; margin: 0 auto; }
+  .blog-grid-cinematic { grid-template-columns: 1fr 1fr; gap: 40px; }
 }
 
 @media (max-width: 768px) {
@@ -840,33 +863,38 @@ a { text-decoration: none; color: inherit; }
   .nav-cta { display: none; }
   .nav-hamburger { display: flex; }
   .nav-links.open { display: flex; flex-direction: column; position: fixed; inset: 80px 0 0; background: var(--bg-color); padding: 40px 32px; gap: 16px; z-index: 999; border-top: 1px solid rgba(0,0,0,0.05); }
-  .nav-links.open a { font-size: 1.25rem; padding: 16px 24px; color: var(--text-main); border-radius: var(--radius-sm); }
-  .nav-links.open a.active { background: var(--surface-alt); }
+  .nav-links.open a { font-size: 1.25rem; padding: 16px 24px; color: var(--text-main); min-height: 44px; }
   .services-accordion { height: 900px; }
   .sa-body p { font-size: 0.9rem; }
-  .why-grid { grid-template-columns: 1fr; }
-  .trust-items { gap: 0; }
+  .trust-items { gap: 0; flex-wrap: wrap; }
   .trust-item { padding: 16px 20px; font-size: 0.9rem; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.06); width: 50%; }
-  .form-row { grid-template-columns: 1fr; }
-  .contact-grid { grid-template-columns: 1fr; }
-  .footer-inner { grid-template-columns: 1fr; gap: 48px; }
-  .testimonial-card { min-width: calc(100% - 0px); }
-  .hero-badge::before { content: ''; }
+  .form-row-sharp { grid-template-columns: 1fr; }
+  .contact-grid-cinematic { grid-template-columns: 1fr; }
+  .footer-inner-cinematic { grid-template-columns: 1fr; gap: 48px; }
+  .testimonial-card.cinematic { padding: 40px 24px; min-width: 100%; }
+  .testimonial-text-large { font-size: 1.3rem; }
   .whatsapp-float span { display: none; }
-  .whatsapp-float { padding: 16px; border-radius: 50%; }
-  
-  .nav-links.open a, .service-link, .t-btn, .footer-links a, .nav-hamburger { min-height: 44px; min-width: 44px; }
+  .whatsapp-float { padding: 16px; }
+  .hero-doctor-wrap { width: 220px; height: 300px; }
+  .hero-title-large { font-size: 3rem; }
+  .about-title-large { font-size: 2.5rem; }
+  .blog-grid-cinematic { grid-template-columns: 1fr; gap: 48px; }
+  .why-row-cinematic { flex-direction: column; gap: 16px; }
+  .why-num-large { font-size: 3rem; }
+  .booking-form-sharp { padding: 40px 24px; }
+  .nav-hamburger, .t-btn, .service-link-sharp { min-height: 44px; min-width: 44px; }
 }
 
 @media (max-width: 480px) {
   h1 { font-size: 2.8rem; }
   h2 { font-size: 2.2rem; }
-  .hero-stats { gap: 24px; }
-  .stat-num { font-size: 2rem; }
-  .stat-num + span { font-size: 1.2rem; }
-  .booking-form { padding: 32px 24px; }
-  .blog-grid { grid-template-columns: 1fr; }
+  .hero-title-large { font-size: 2.5rem; }
+  .about-title-large { font-size: 2rem; }
+  .hero-doctor-wrap { width: 180px; height: 240px; }
+  .booking-form-sharp { padding: 32px 16px; }
   .trust-item { width: 100%; }
+  .stat-clean { padding: 0 24px; }
+  .stat-clean strong { font-size: 1.8rem; }
 }
 
 /* Accessibility & Form Validation */
