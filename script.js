@@ -62,12 +62,19 @@ document.querySelectorAll('.service-card, .why-card, .contact-card, .about-featu
   revealObserver.observe(el);
 });
 
-// Trigger counters when hero stats are visible
+// Trigger counters when hero stats are visible — use low threshold so it fires reliably
 const statsObserver = new IntersectionObserver((entries) => {
   if (entries[0].isIntersecting) startCounters();
-}, { threshold: 0.5 });
+}, { threshold: 0.1 });
 const statsEl = document.querySelector('.hero-stats');
-if (statsEl) statsObserver.observe(statsEl);
+if (statsEl) {
+  statsObserver.observe(statsEl);
+} else {
+  // fallback: start immediately
+  startCounters();
+}
+// Also fire after 1s in case observer misses the above-fold element
+setTimeout(startCounters, 1000);
 
 // ===========================
 // TESTIMONIALS SLIDER
@@ -175,13 +182,29 @@ const submitBtn = document.getElementById('submitBtn');
 
 bookingForm?.addEventListener('submit', (e) => {
   e.preventDefault();
+  const fname = document.getElementById('fname')?.value.trim() || '';
+  const lname = document.getElementById('lname')?.value.trim() || '';
+  const phone = document.getElementById('phone')?.value.trim() || '';
+  const service = document.getElementById('service')?.value || 'General Checkup';
+  const date = document.getElementById('apptdate')?.value || '';
+
+  // Build WhatsApp message
+  const msg = `Hi PureSmile Dental! I would like to book an appointment.%0A%0A` +
+    `Name: ${encodeURIComponent(fname + ' ' + lname)}%0A` +
+    `Phone: ${encodeURIComponent(phone)}%0A` +
+    `Service: ${encodeURIComponent(service)}%0A` +
+    (date ? `Preferred Date: ${encodeURIComponent(date)}%0A` : '') +
+    `%0APlease confirm my slot. Thank you!`;
+
   submitBtn.disabled = true;
-  submitBtn.querySelector('span').textContent = 'Sending…';
+  submitBtn.querySelector('span').textContent = 'Opening WhatsApp…';
+
   setTimeout(() => {
+    window.open(`https://wa.me/919876500000?text=${msg}`, '_blank');
     bookingForm.style.display = 'none';
     bookingSuccess.style.display = 'block';
     bookingSuccess.classList.add('reveal', 'visible');
-  }, 1200);
+  }, 600);
 });
 
 // ===========================
