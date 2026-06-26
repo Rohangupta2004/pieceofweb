@@ -1,10 +1,9 @@
 // ===========================
-// NAV SCROLL EFFECT
+// NAV SCROLL
 // ===========================
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 50) navbar.classList.add('scrolled');
-  else navbar.classList.remove('scrolled');
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
 }, { passive: true });
 
 // ===========================
@@ -12,24 +11,22 @@ window.addEventListener('scroll', () => {
 // ===========================
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
-hamburger.addEventListener('click', () => {
-  navLinks.classList.toggle('open');
-});
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => navLinks.classList.remove('open'));
-});
+hamburger?.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks?.querySelectorAll('a').forEach(link =>
+  link.addEventListener('click', () => navLinks.classList.remove('open'))
+);
 
 // ===========================
 // COUNTER ANIMATION
 // ===========================
 function animateCounter(el, target, duration = 1800) {
   let start = 0;
-  const step = (timestamp) => {
-    if (!start) start = timestamp;
-    const progress = Math.min((timestamp - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
+  const step = (ts) => {
+    if (!start) start = ts;
+    const p = Math.min((ts - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
     el.textContent = Math.floor(eased * target).toLocaleString();
-    if (progress < 1) requestAnimationFrame(step);
+    if (p < 1) requestAnimationFrame(step);
     else el.textContent = target.toLocaleString();
   };
   requestAnimationFrame(step);
@@ -38,15 +35,14 @@ function animateCounter(el, target, duration = 1800) {
 let countersStarted = false;
 function startCounters() {
   if (countersStarted) return;
-  document.querySelectorAll('.stat-num').forEach(el => {
-    const target = parseInt(el.getAttribute('data-target'), 10);
-    animateCounter(el, target);
-  });
   countersStarted = true;
+  document.querySelectorAll('.stat-num').forEach(el => {
+    animateCounter(el, parseInt(el.dataset.target, 10));
+  });
 }
 
 // ===========================
-// INTERSECTION OBSERVER
+// INTERSECTION OBSERVER — REVEAL
 // ===========================
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -55,26 +51,19 @@ const revealObserver = new IntersectionObserver((entries) => {
       revealObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-document.querySelectorAll('.sa-item, .why-row-cinematic, .contact-card-sharp, .about-feature-sharp, .blog-card-sharp').forEach(el => {
-  el.classList.add('reveal');
-  revealObserver.observe(el);
-});
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-// Trigger counters when hero stats are visible — use low threshold so it fires reliably
-const statsObserver = new IntersectionObserver((entries) => {
-  if (entries[0].isIntersecting) startCounters();
-}, { threshold: 0.1 });
-const statsEl = document.querySelector('.hero-stats');
-if (statsEl) {
-  statsObserver.observe(statsEl);
-} else {
-  // fallback: start immediately
-  startCounters();
+// Counter observer
+const heroStats = document.getElementById('heroStats');
+if (heroStats) {
+  const statsObs = new IntersectionObserver((e) => {
+    if (e[0].isIntersecting) startCounters();
+  }, { threshold: 0.1 });
+  statsObs.observe(heroStats);
 }
-// Also fire after 1s in case observer misses the above-fold element
-setTimeout(startCounters, 1000);
+setTimeout(startCounters, 1200);
 
 // ===========================
 // TESTIMONIALS SLIDER
@@ -83,93 +72,51 @@ const track = document.getElementById('testimonialsTrack');
 const tDotsContainer = document.getElementById('tDots');
 const cards = track ? Array.from(track.querySelectorAll('.testimonial-card')) : [];
 let currentIndex = 0;
-let cardsPerView = 3;
-let autoSlideTimer = null;
-
-function getCardsPerView() {
-  return 1;
-}
+let autoTimer = null;
 
 function buildDots() {
   if (!tDotsContainer) return;
   tDotsContainer.innerHTML = '';
-  const totalSlides = Math.ceil(cards.length / cardsPerView);
-  for (let i = 0; i < totalSlides; i++) {
+  for (let i = 0; i < cards.length; i++) {
     const dot = document.createElement('div');
     dot.className = 't-dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => goToSlide(i));
+    dot.addEventListener('click', () => goTo(i));
     tDotsContainer.appendChild(dot);
   }
 }
 
 function updateSlider() {
   if (!track) return;
-  cardsPerView = getCardsPerView();
-  const gap = 0;
-  const trackWidth = track.parentElement.offsetWidth;
-  const cardWidth = trackWidth; // each card is 100% width
-  const offset = currentIndex * cardWidth;
-  track.style.transform = `translateX(-${offset}px)`;
-  document.querySelectorAll('.t-dot').forEach((dot, i) => {
-    dot.classList.toggle('active', i === currentIndex);
+  const w = track.parentElement.offsetWidth;
+  track.style.transform = `translateX(-${currentIndex * w}px)`;
+  document.querySelectorAll('.t-dot').forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+}
+
+function goTo(i) { currentIndex = Math.max(0, Math.min(i, cards.length - 1)); updateSlider(); }
+function next() { currentIndex = (currentIndex + 1) % cards.length; updateSlider(); }
+function prev() { currentIndex = (currentIndex - 1 + cards.length) % cards.length; updateSlider(); }
+
+document.getElementById('tNext')?.addEventListener('click', next);
+document.getElementById('tPrev')?.addEventListener('click', prev);
+
+function startAuto() { autoTimer = setInterval(next, 4500); }
+function stopAuto() { clearInterval(autoTimer); }
+
+if (track) {
+  track.addEventListener('mouseenter', stopAuto);
+  track.addEventListener('mouseleave', startAuto);
+  let tx = 0;
+  track.addEventListener('touchstart', e => { tx = e.changedTouches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const d = tx - e.changedTouches[0].clientX;
+    if (Math.abs(d) > 50) d > 0 ? next() : prev();
   });
 }
 
-function goToSlide(index) {
-  cardsPerView = getCardsPerView();
-  const totalSlides = Math.ceil(cards.length / cardsPerView);
-  currentIndex = Math.max(0, Math.min(index, totalSlides - 1));
-  updateSlider();
-}
-
-function nextSlide() {
-  cardsPerView = getCardsPerView();
-  const totalSlides = Math.ceil(cards.length / cardsPerView);
-  currentIndex = (currentIndex + 1) % totalSlides;
-  updateSlider();
-}
-
-function prevSlide() {
-  cardsPerView = getCardsPerView();
-  const totalSlides = Math.ceil(cards.length / cardsPerView);
-  currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-  updateSlider();
-}
-
-document.getElementById('tNext')?.addEventListener('click', nextSlide);
-document.getElementById('tPrev')?.addEventListener('click', prevSlide);
-
-function startAutoSlide() {
-  autoSlideTimer = setInterval(nextSlide, 4500);
-}
-function stopAutoSlide() {
-  clearInterval(autoSlideTimer);
-}
-
-if (track) {
-  track.addEventListener('mouseenter', stopAutoSlide);
-  track.addEventListener('mouseleave', startAutoSlide);
-}
-
-// Touch swipe support
-let touchStartX = 0;
-track?.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
-track?.addEventListener('touchend', e => {
-  const diff = touchStartX - e.changedTouches[0].clientX;
-  if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
-});
-
-window.addEventListener('resize', () => {
-  cardsPerView = getCardsPerView();
-  buildDots();
-  currentIndex = 0;
-  updateSlider();
-});
-
 buildDots();
-startAutoSlide();
-// Init after slight delay to allow layout
+startAuto();
 setTimeout(updateSlider, 100);
+window.addEventListener('resize', () => { currentIndex = 0; updateSlider(); });
 
 // ===========================
 // BOOKING FORM
@@ -180,22 +127,12 @@ const submitBtn = document.getElementById('submitBtn');
 
 bookingForm?.addEventListener('submit', (e) => {
   e.preventDefault();
-  
-  // Basic Visual Validation
   if (!bookingForm.checkValidity()) {
-    // Add error classes to invalid inputs
-    bookingForm.querySelectorAll('input, select').forEach(input => {
-      if (!input.checkValidity()) {
-        input.classList.add('error');
-      } else {
-        input.classList.remove('error');
-      }
+    bookingForm.querySelectorAll('input, select').forEach(inp => {
+      inp.classList.toggle('error', !inp.checkValidity());
     });
-    // Remove error class on input
-    bookingForm.addEventListener('input', (event) => {
-      if (event.target.checkValidity()) {
-        event.target.classList.remove('error');
-      }
+    bookingForm.addEventListener('input', (ev) => {
+      if (ev.target.checkValidity()) ev.target.classList.remove('error');
     });
     return;
   }
@@ -206,7 +143,6 @@ bookingForm?.addEventListener('submit', (e) => {
   const service = document.getElementById('service')?.value || 'General Checkup';
   const date = document.getElementById('apptdate')?.value || '';
 
-  // Build WhatsApp message
   const msg = `Hi PureSmile Dental! I would like to book an appointment.%0A%0A` +
     `Name: ${encodeURIComponent(fname + ' ' + lname)}%0A` +
     `Phone: ${encodeURIComponent(phone)}%0A` +
@@ -215,42 +151,22 @@ bookingForm?.addEventListener('submit', (e) => {
     `%0APlease confirm my slot. Thank you!`;
 
   submitBtn.disabled = true;
-  submitBtn.querySelector('span').textContent = 'Opening WhatsApp…';
+  submitBtn.textContent = 'Opening WhatsApp…';
 
   setTimeout(() => {
     window.open(`https://wa.me/919876500000?text=${msg}`, '_blank');
     bookingForm.style.display = 'none';
     bookingSuccess.style.display = 'block';
-    bookingSuccess.classList.add('reveal', 'visible');
   }, 600);
 });
 
 // ===========================
-// SMOOTH HOVER CARD EFFECTS
-// ===========================
-document.querySelectorAll('.service-card, .why-card, .contact-card').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
-    card.style.transform = `translateY(-6px) rotateX(${-y * 0.5}deg) rotateY(${x * 0.5}deg)`;
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-  });
-});
-
-// ===========================
-// ACTIVE NAV LINK
+// ACTIVE NAV
 // ===========================
 const sections = document.querySelectorAll('section[id]');
-const navLinkEls = document.querySelectorAll('.nav-links a');
+const navEls = document.querySelectorAll('.nav-links a');
 window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(section => {
-    if (window.scrollY >= section.offsetTop - 120) current = section.id;
-  });
-  navLinkEls.forEach(link => {
-    link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
-  });
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+  navEls.forEach(l => l.classList.toggle('active', l.getAttribute('href') === `#${cur}`));
 }, { passive: true });
