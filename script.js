@@ -182,6 +182,26 @@ const submitBtn = document.getElementById('submitBtn');
 
 bookingForm?.addEventListener('submit', (e) => {
   e.preventDefault();
+  
+  // Basic Visual Validation
+  if (!bookingForm.checkValidity()) {
+    // Add error classes to invalid inputs
+    bookingForm.querySelectorAll('input, select').forEach(input => {
+      if (!input.checkValidity()) {
+        input.classList.add('error');
+      } else {
+        input.classList.remove('error');
+      }
+    });
+    // Remove error class on input
+    bookingForm.addEventListener('input', (event) => {
+      if (event.target.checkValidity()) {
+        event.target.classList.remove('error');
+      }
+    });
+    return;
+  }
+
   const fname = document.getElementById('fname')?.value.trim() || '';
   const lname = document.getElementById('lname')?.value.trim() || '';
   const phone = document.getElementById('phone')?.value.trim() || '';

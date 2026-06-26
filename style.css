@@ -905,3 +905,10 @@ a { text-decoration: none; color: inherit; }
   .blog-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+
+/* Accessibility & Tap Targets */
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+@media (max-width: 768px) { .nav-links.open a, .service-link, .t-btn, .footer-links a, .nav-hamburger { min-height: 44px; min-width: 44px; } }
+
+input.error, select.error { border-color: #ef4444; background-color: #fef2f2; }
+input.error:focus, select.error:focus { box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2); }
