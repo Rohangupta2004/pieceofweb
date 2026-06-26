@@ -75,7 +75,7 @@ a { text-decoration: none; color: inherit; }
   padding: 8px 20px;
   background: var(--surface-alt);
   color: var(--primary);
-  border-radius: 100px;
+  border-radius: 0;
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -91,7 +91,7 @@ a { text-decoration: none; color: inherit; }
   align-items: center;
   gap: 10px;
   padding: 16px 36px;
-  border-radius: 100px;
+  border-radius: 0;
   font-family: var(--font-body);
   font-size: 1.05rem;
   font-weight: 600;
@@ -132,8 +132,7 @@ a { text-decoration: none; color: inherit; }
   transition: var(--transition);
 }
 .nav.scrolled {
-  background: rgba(252, 251, 249, 0.95);
-  backdrop-filter: blur(24px);
+  background: rgba(252, 251, 249, 0.97);
   padding: 16px 0;
   box-shadow: var(--shadow-sm);
 }
@@ -617,13 +616,12 @@ a { text-decoration: none; color: inherit; }
 /* ===========================
    TESTIMONIALS
    =========================== */
-.testimonials { background: var(--bg-color); overflow: hidden; }
+.testimonials.cinematic { background: var(--surface-alt); padding: 120px 0; overflow: hidden; }
 .testimonials-track {
   display: flex;
-  gap: 32px;
+  gap: 0;
   transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-  overflow: hidden;
-  padding: 20px 0 40px; /* Space for shadow */
+  padding: 0;
 }
 
 .testimonial-card.cinematic {

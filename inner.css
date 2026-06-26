@@ -4,7 +4,7 @@
 .inner-nav .nav-links a:hover, .inner-nav .nav-links a.active { color: var(--primary) !important; background: var(--surface-alt) !important; }
 .inner-nav .nav-hamburger span { background: var(--text-main) !important; }
 .inner-nav .nav-cta { background: var(--secondary) !important; color: var(--surface) !important; }
-.inner-nav { background: rgba(252, 251, 249, 0.98) !important; backdrop-filter: blur(24px) !important; box-shadow: var(--shadow-sm) !important; padding: 16px 0 !important; }
+.inner-nav { background: rgba(252, 251, 249, 0.98) !important; box-shadow: var(--shadow-sm) !important; padding: 16px 0 !important; }
 
 /* Page Hero (breadcrumb banner) */
 .page-hero {

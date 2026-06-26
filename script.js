@@ -57,7 +57,7 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-document.querySelectorAll('.sa-item, .why-row-cinematic, .contact-card-sharp, .about-feature-sharp, .testimonial-card, .blog-card-sharp').forEach(el => {
+document.querySelectorAll('.sa-item, .why-row-cinematic, .contact-card-sharp, .about-feature-sharp, .blog-card-sharp').forEach(el => {
   el.classList.add('reveal');
   revealObserver.observe(el);
 });
@@ -105,10 +105,10 @@ function buildDots() {
 function updateSlider() {
   if (!track) return;
   cardsPerView = getCardsPerView();
-  const gap = 24;
+  const gap = 0;
   const trackWidth = track.parentElement.offsetWidth;
-  const cardWidth = (trackWidth - (cardsPerView - 1) * gap) / cardsPerView;
-  const offset = currentIndex * (cardWidth + gap);
+  const cardWidth = trackWidth; // each card is 100% width
+  const offset = currentIndex * cardWidth;
   track.style.transform = `translateX(-${offset}px)`;
   document.querySelectorAll('.t-dot').forEach((dot, i) => {
     dot.classList.toggle('active', i === currentIndex);
