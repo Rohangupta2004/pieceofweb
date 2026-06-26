@@ -894,20 +894,3 @@ a { text-decoration: none; color: inherit; }
   .blog-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* Filter buttons (blog listing) */
-.filter-btn {
-  padding: 8px 20px;
-  border-radius: 100px;
-  border: 2px solid var(--gray-200);
-  background: var(--white);
-  color: var(--gray-600);
-  font-family: var(--font-body);
-  font-size: 0.88rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-}
-.filter-btn:hover { border-color: var(--blue); color: var(--blue); }
-.filter-btn.active { background: var(--blue); color: var(--white); border-color: var(--blue); }
-
-
