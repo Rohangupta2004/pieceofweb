@@ -605,6 +605,7 @@ a { text-decoration: none; color: inherit; }
   aspect-ratio: 3/4;
   display: block;
   object-fit: cover;
+  object-position: top;
   filter: grayscale(15%) contrast(1.05);
 }
 .about-exp-badge-sharp {
@@ -1274,3 +1275,13 @@ a { text-decoration: none; color: inherit; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 input.error, select.error { border-color: #ef4444; background-color: #fef2f2; }
 input.error:focus, select.error:focus { box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15); border-color: #ef4444; }
+
+/* =========================
+   UTILITY CLASSES
+   ========================= */
+.btn-full-width { width: 100%; }
+.booking-form-title { font-size: 2rem; }
+.gallery-tag { color: var(--primary-light) !important; border-color: var(--primary-light) !important; }
+.gallery-title { color: #fff !important; }
+.gallery-subtitle { color: rgba(255,255,255,0.6) !important; }
+.section-cta-center { text-align: center; margin-top: 80px; }
