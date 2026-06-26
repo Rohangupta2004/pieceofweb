@@ -215,7 +215,7 @@ bookingForm?.addEventListener('submit', (e) => {
     `%0APlease confirm my slot. Thank you!`;
 
   submitBtn.disabled = true;
-  submitBtn.querySelector('span').textContent = 'Opening WhatsApp…';
+  submitBtn.textContent = 'Opening WhatsApp…';
 
   setTimeout(() => {
     window.open(`https://wa.me/919876500000?text=${msg}`, '_blank');
@@ -238,6 +238,33 @@ document.querySelectorAll('.service-card, .why-card, .contact-card').forEach(car
   card.addEventListener('mouseleave', () => {
     card.style.transform = '';
   });
+});
+
+// ===========================
+// PAGE PRELOADER
+// ===========================
+window.addEventListener('load', () => {
+  const loader = document.getElementById('pageLoader');
+  if (loader) {
+    setTimeout(() => loader.classList.add('loaded'), 300);
+    setTimeout(() => loader.remove(), 900);
+  }
+});
+
+// ===========================
+// STAGGERED REVEAL OBSERVER
+// ===========================
+const staggerObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      staggerObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+document.querySelectorAll('.reveal-stagger, .sp-badge, .gallery-card').forEach(el => {
+  staggerObserver.observe(el);
 });
 
 // ===========================
