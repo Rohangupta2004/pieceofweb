@@ -137,3 +137,27 @@
   .values-grid { grid-template-columns: 1fr; }
   .page-hero { padding: 120px 0 60px; }
 }
+
+/* Blog Filter Buttons */
+.filter-btn {
+  padding: 8px 18px;
+  background: var(--white);
+  color: var(--gray-600);
+  border: 1px solid var(--gray-200);
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.filter-btn:hover {
+  background: var(--gray-50);
+  border-color: var(--gray-300);
+}
+.filter-btn.active {
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--blue);
+  font-weight: 600;
+}
